@@ -8,10 +8,20 @@
 
 import UIKit
 
+import MSHPlayer
+
+
 class ViewController: UIViewController {
 
+    
+//    var msPlayer:
+
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+   
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
 

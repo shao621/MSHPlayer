@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'MSHPlayer_Example' do
+  pod 'MSHPlayer', :path => '../'
+
+  target 'MSHPlayer_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end

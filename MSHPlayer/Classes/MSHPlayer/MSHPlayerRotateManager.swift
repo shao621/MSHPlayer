@@ -7,12 +7,12 @@
 
 import UIKit
 
-class MSHPlayerRotateManager: NSObject {
+public class MSHPlayerRotateManager: NSObject {
     var msplayer: MSHPlayer!
     var playFrame:CGRect!
     var playCenter:CGPoint=CGPoint.init(x: 0, y: 0)
     
-    convenience init(msplayer:MSHPlayer) {
+    public convenience init(msplayer:MSHPlayer) {
         self.init()
         self.msplayer=msplayer
     }
@@ -20,18 +20,18 @@ class MSHPlayerRotateManager: NSObject {
 
 extension MSHPlayerRotateManager: UIViewControllerAnimatedTransitioning,UIViewControllerTransitioningDelegate{
     
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return self
     }
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return self
     }
     
-    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+    public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.5
     }
     
-    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+    public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         let contrainerView = transitionContext.containerView
          let fromController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)
         var toController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)

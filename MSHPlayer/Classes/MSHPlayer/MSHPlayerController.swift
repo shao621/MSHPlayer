@@ -7,30 +7,30 @@
 
 import UIKit
 
-class MSHPlayerController: UIViewController {
+public class MSHPlayerController: UIViewController {
 
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor=UIColor.init(red: 1, green: 1, blue: 1, alpha: 0)
     }
     //是否支持自动旋转
-    override var shouldAutorotate: Bool{
+    override public var shouldAutorotate: Bool{
         return true
     }
     
     //支持的方向
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask{
+    override public var supportedInterfaceOrientations: UIInterfaceOrientationMask{
         return UIInterfaceOrientationMask.landscape
     }
     //模态推出的视图控制器，优先支持的屏幕方向
-    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation{
+    override public var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation{
         return UIInterfaceOrientation.portrait
     }
-    override var preferredStatusBarStyle: UIStatusBarStyle{
+    override public var preferredStatusBarStyle: UIStatusBarStyle{
         return UIStatusBarStyle.default
     }
 
-    override func setNeedsStatusBarAppearanceUpdate() {
+    override public func setNeedsStatusBarAppearanceUpdate() {
         
     }
     

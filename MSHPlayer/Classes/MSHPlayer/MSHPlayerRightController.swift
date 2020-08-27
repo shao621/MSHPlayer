@@ -7,20 +7,20 @@
 
 import UIKit
 
-class MSHPlayerRightController: MSHPlayerController {
+public class MSHPlayerRightController: MSHPlayerController {
 
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
          super.viewDidLoad()
          view.backgroundColor=UIColor.white
      }
      
-    override var shouldAutorotate: Bool{
+    override public var shouldAutorotate: Bool{
         return true
     }
-    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation{
+    override public var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation{
         return UIInterfaceOrientation.landscapeRight
     }
-     override var supportedInterfaceOrientations: UIInterfaceOrientationMask{
+    override public var supportedInterfaceOrientations: UIInterfaceOrientationMask{
          return UIInterfaceOrientationMask.landscapeRight
      }
 

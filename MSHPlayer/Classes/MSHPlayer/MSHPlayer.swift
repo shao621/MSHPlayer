@@ -18,7 +18,7 @@ import SnapKit
 //
 //}
 
-enum MSPlayerStatus {
+public enum MSPlayerStatus {
     case MSDefault //播放失败
     case MSFaild //播放失败
     case MSBuffering //缓冲中
@@ -29,7 +29,7 @@ enum MSPlayerStatus {
     
 }
 
-@objc protocol MSPlayerDelegate: NSObjectProtocol {
+ @objc public protocol MSPlayerDelegate: NSObjectProtocol {
 
     ///进入前台
     @objc optional func ms_avplayDidEnterBackgroundFunc(notion:NSNotification)
@@ -51,11 +51,11 @@ enum MSPlayerStatus {
     @objc optional func MSPlayerPushAdFunc(play:MSHPlayer)
 }
 
-class MSHPlayer: UIView {
+public class MSHPlayer: UIView {
     
     
     //---
-    var adImageURL:String = ""{
+    public var adImageURL:String = ""{
         didSet{
             if adImageURL.count<=0 {
                 return
@@ -64,7 +64,7 @@ class MSHPlayer: UIView {
         }
     }
     
-    var showAd:Bool=false{
+    public var showAd:Bool=false{
         didSet{
             if showAd==true && (self.state==MSPlayerStatus.MSPause || self.state==MSPlayerStatus.MSStopped || self.state==MSPlayerStatus.MSFinished){
                 self.addSubview(self.adView)
@@ -98,7 +98,7 @@ class MSHPlayer: UIView {
     lazy var adBtn: UIButton = {
         let ad=UIButton()
         ad.addTarget(self, action: #selector(clickAdBtn), for: UIControlEvents.touchUpInside)
-        ad.setImage(UIImage.init(named: self.loadingImagePath(name: "YBSAdDel")), for: .normal)
+        ad.setImage(self.loadingImagePath(name: "YBSAdDel"), for: .normal)
         return ad
     }()
     
@@ -114,20 +114,20 @@ class MSHPlayer: UIView {
     
  static var avplayerItemContextValue: UInt32 = 0
  static  let avplayerItemContext: UnsafeMutableRawPointer = UnsafeMutableRawPointer(&avplayerItemContextValue)
-    weak var delegate: MSPlayerDelegate!
+    public weak var delegate: MSPlayerDelegate!
     //是否开启进入后台播放
-    var backgroundModel:Bool = false
+    public var backgroundModel:Bool = false
     
 //    let playbacktimeobserver
     ///是否展示上下菜单栏
-    var showTopAndBottomView: Bool = true
+    public var showTopAndBottomView: Bool = true
     //是否隐藏状态栏
-    var hiddenStatusBar: Bool = false
+    public var hiddenStatusBar: Bool = false
 
     //进度条拖拽
-    var isDragingSlider: Bool = false
+    public var isDragingSlider: Bool = false
     ///播放状态
-    var state :MSPlayerStatus?=MSPlayerStatus.MSDefault{
+    public var state :MSPlayerStatus?=MSPlayerStatus.MSDefault{
         didSet{
             guard let states = state else { return  }
             if states==MSPlayerStatus.MSBuffering{//缓冲中
@@ -164,7 +164,7 @@ class MSHPlayer: UIView {
     ///返回按钮
     private lazy var backBtn:UIButton={
         let btn=UIButton.init(type: UIButtonType.custom)
-        btn.setImage(UIImage(named: self.loadingImagePath(name: "MSBack")), for: .normal)
+        btn.setImage(self.loadingImagePath(name: "MSBack"), for: .normal)
         btn.adjustsImageWhenHighlighted=false
         btn.addTarget(self, action: #selector(clickBackBtn(btn:)), for: .touchUpInside)
         return btn
@@ -185,7 +185,7 @@ class MSHPlayer: UIView {
     ///  全屏
     private lazy var fullScreenBtn:UIButton={
         let btn=UIButton.init(type: UIButtonType.custom)
-        btn.setImage(UIImage(named: self.loadingImagePath(name: "MSFullScreen")), for: .normal)
+        btn.setImage(self.loadingImagePath(name: "MSFullScreen"), for: .normal)
         btn.adjustsImageWhenHighlighted=false
         btn.addTarget(self, action: #selector(clickFullscreenBtn(btn:)), for: .touchUpInside)
         return btn
@@ -194,8 +194,8 @@ class MSHPlayer: UIView {
     private lazy var playBtn:UIButton={
         let btn=UIButton.init(type: UIButtonType.custom)
         btn.adjustsImageWhenHighlighted=false
-        btn.setImage(UIImage(named: self.loadingImagePath(name: "MSPlay")), for: .normal)
-        btn.setImage(UIImage(named: self.loadingImagePath(name: "MSStop")), for: .selected)
+        btn.setImage(self.loadingImagePath(name: "MSPlay"), for: .normal)
+        btn.setImage(self.loadingImagePath(name: "MSStop"), for: .selected)
         btn.addTarget(self, action: #selector(clickPlayBtn(btn:)), for: .touchUpInside)
         return btn
     }()
@@ -224,7 +224,7 @@ class MSHPlayer: UIView {
         progress.minimumTrackTintColor=UIColor.red
         progress.maximumTrackTintColor=UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
         progress.backgroundColor=UIColor.init(white: 1, alpha: 0)
-        progress.setThumbImage(UIImage(named: self.loadingImagePath(name: "MSDot")), for: .normal)
+        progress.setThumbImage(self.loadingImagePath(name: "MSDot"), for: .normal)
         progress.value=0.0
         progress.addTarget(self, action: #selector(dragSliderProgress(slider:)), for: .valueChanged)
         progress.addTarget(self, action: #selector(updateProgress(slider:)), for: .touchUpInside)
@@ -248,7 +248,7 @@ class MSHPlayer: UIView {
     }()
     
     ///总时长
-    var duration:CGFloat?{
+    public var duration:CGFloat?{
         set{
         }
         get{
@@ -257,18 +257,18 @@ class MSHPlayer: UIView {
         }
     }
     ///当前时长
-    var currentTime:CGFloat?{
+     public var currentTime:CGFloat?{
         set{
         }
         get{
             return CGFloat(CMTimeGetSeconds(self.avplay.currentTime()))
         }
     }
-    var totalTime:CGFloat = 0.0
+    public var totalTime:CGFloat = 0.0
     
     
     /// 当前播放item
-    var videoURL:String?{
+    public var videoURL:String?{
         didSet{
             guard let url=URL.init(string: videoURL ?? "") else {
                 return
@@ -304,9 +304,9 @@ class MSHPlayer: UIView {
         }
     }
     /// 获取当前播放item
-    var currentItem: AVPlayerItem?
+    public var currentItem: AVPlayerItem?
     
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if context == MSHPlayer.avplayerItemContext {
             if keyPath=="status" {
                 let dic:NSDictionary = change! as NSDictionary
@@ -525,7 +525,7 @@ class MSHPlayer: UIView {
         }
         
     }
-    var isFullScreen: Bool = false
+    public var isFullScreen: Bool = false
 //    {
 //        didSet{
 //            guard let fullScreen=self.isFullScreen else {
@@ -555,12 +555,12 @@ class MSHPlayer: UIView {
         
     }
     //展示topView bottomView
-    func showTopAndBottomViewFunc() {
+    public func showTopAndBottomViewFunc() {
         self.topView.alpha=1.0
         self.bottomView.alpha=1.0
     }
     //隐藏topView bottomView
-    func hiddenTopAndBottomViewFunc() {
+    public func hiddenTopAndBottomViewFunc() {
         self.topView.alpha=0.0
         self.bottomView.alpha=0.0
     }
@@ -799,7 +799,7 @@ class MSHPlayer: UIView {
 extension MSHPlayer{
    
     ///播放
-    @objc func play() {
+    @objc public func play() {
         if (self.state==MSPlayerStatus.MSStopped) || (self.state==MSPlayerStatus.MSPause) || (self.state==MSPlayerStatus.MSDefault){
             self.state=MSPlayerStatus.MSPlaying
             self.playBtn.isSelected=true
@@ -807,7 +807,7 @@ extension MSHPlayer{
         }
     }
     ///暂停
-    @objc func pause() {
+    @objc public func pause() {
         if self.state==MSPlayerStatus.MSPlaying {
             self.state=MSPlayerStatus.MSStopped
         }
@@ -827,8 +827,15 @@ extension MSHPlayer: UIGestureRecognizerDelegate{
     }
 }
 extension MSHPlayer{
-   @objc func loadingImagePath(name: String) -> String {
-        let path: NSString = "MSPlayer.bundle"
-        return   path.appendingPathComponent(name)//"MSPlayer.bundle"
-    }
+//   @objc func loadingImagePath(name: String) -> String {
+//        let path: NSString = "MSPlayer.bundle"
+//        return   path.appendingPathComponent(name)//"MSPlayer.bundle"
+//    }
+    // MARK 获取图片资源
+      @objc func loadingImagePath(name: String) -> UIImage {
+           let curBundle = Bundle.init(for: MSHPlayer.self)
+       let scale = Int(UIScreen.main.scale)
+           guard let path = curBundle.path(forResource: "\(name)@\(scale)x.png", ofType: nil, inDirectory: "MSPlayer.bundle") else { return UIImage() }
+           return UIImage.init(contentsOfFile: path) ?? UIImage()
+       }
 }

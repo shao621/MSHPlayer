@@ -22,7 +22,7 @@ pod 'MSHPlayer'
 
 ## Author
 
-shao621, mashaohui@yhbj.com
+shao621, 531234928@qq.com
 
 ## License
 

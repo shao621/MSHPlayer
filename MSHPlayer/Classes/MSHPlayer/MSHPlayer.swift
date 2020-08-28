@@ -90,8 +90,8 @@ public class MSHPlayer: UIView {
     lazy var adView: UIView = {
         let ad=UIView()
         ad.backgroundColor=UIColor.init(white: 0, alpha: 0.3)
-        let tap=UITapGestureRecognizer.init(target: self, action: #selector(tapGestureDismissImageView))
-        ad.addGestureRecognizer(tap)
+//        let tap=UITapGestureRecognizer.init(target: self, action: #selector(tapGestureDismissImageView))
+//        ad.addGestureRecognizer(tap)
         
         return ad
     }()

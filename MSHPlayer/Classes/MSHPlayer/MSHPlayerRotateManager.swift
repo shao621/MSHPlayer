@@ -48,14 +48,17 @@ extension MSHPlayerRotateManager: UIViewControllerAnimatedTransitioning,UIViewCo
                 make.bottom.top.left.right.equalToSuperview()
             }
             
-            toController?.view.backgroundColor=UIColor.init(white: 1, alpha: 0)
-            if toController?.isKind(of: MSHPlayerLeftController.self) == true {
-                toController?.view.transform=CGAffineTransform.init(rotationAngle: CGFloat(Double.pi/2.0))
-            }else{
-                toController?.view.transform=CGAffineTransform.init(rotationAngle: CGFloat(-Double.pi/2.0))
-            }
+            
             
             UIView.animate(withDuration: self.transitionDuration(using: transitionContext), animations: {
+                //--
+                toController?.view.backgroundColor=UIColor.init(white: 1, alpha: 0)
+                if toController?.isKind(of: MSHPlayerLeftController.self) == true {
+                    toController?.view.transform=CGAffineTransform.init(rotationAngle: CGFloat(Double.pi/2.0))
+                }else{
+                    toController?.view.transform=CGAffineTransform.init(rotationAngle: CGFloat(-Double.pi/2.0))
+                }
+                //--
                 toController?.view.transform=CGAffineTransform.identity
                 toController?.view.bounds=contrainerView.bounds
                 toController?.view.center=contrainerView.center
